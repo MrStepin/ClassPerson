@@ -18,7 +18,7 @@ namespace Tests
         Manager manager = new Manager();
 
         [Test]
-        public void CheckManagerSalary()
+        public void CheckSalary()
         {
             manager.Hire(worker1);
             manager.Hire(worker2);
