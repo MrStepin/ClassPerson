@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClassPerson
 {
-    class Manager : Employee
+    public class Manager : Employee
     {
-        public List<Worker> ListOfWorkers = new List<Worker>(){};
+        public List<Worker> ListOfWorkers = new List<Worker>() { };
 
         public void Dismiss(Worker worker)
         {
@@ -20,18 +20,24 @@ namespace ClassPerson
             ListOfWorkers.Add(worker);
         }
 
-        public void SetSalary(Manager manager, double salary)
+        private double _value;
+
+        public double Salary
         {
-            foreach (Worker worker in ListOfWorkers)
+            get
             {
-                if (worker.Salary >= manager.Salary)
+                foreach (Worker worker in ListOfWorkers)
                 {
-                    Console.WriteLine("Increase salary");
+                    if (worker.Salary >= _value)
+                    {
+                        throw new Exception("Increase salary!");
+                    }
                 }
-                else
-                {
-                    manager.Salary = salary;
-                }
+                return _value;
+            }
+            set
+            {
+                _value = value;
             }
         }
     }

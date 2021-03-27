@@ -17,22 +17,25 @@ namespace ClassPerson
             Manager manager = new Manager();
 
             worker1.Name = "Mr.Ivan";
+            worker1.ManagerSalary(manager);
             worker1.Salary = 100;
             worker1.Age = 30;
             worker1.Seniority = 1;
 
             worker2.Name = "Mr.Oleg";
+            worker2.ManagerSalary(manager);
             worker2.Salary = 150;
             worker2.Age = 20;
             worker2.Seniority = 2;
 
             worker3.Name = "Mr.Vasya";
+            worker3.ManagerSalary(manager);
             worker3.Salary = 100;
             worker3.Age = 30;
             worker3.Seniority = 1;
 
             manager.Name = "Mr.Boss";
-            manager.SetSalary(manager, 200);
+            manager.Salary = 20;
             manager.Age = 40;
             manager.Seniority = 10;
 
@@ -41,6 +44,9 @@ namespace ClassPerson
             manager.Hire(worker3);
 
             manager.Dismiss(worker2);
+            Console.WriteLine(manager.Salary);
+            Console.ReadKey();
+
         }
     }
 }
