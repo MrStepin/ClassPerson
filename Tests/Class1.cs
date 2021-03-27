@@ -11,23 +11,22 @@ namespace Tests
 {
     public class Class1
     {
-        Worker worker1 = new Worker();
-        Worker worker2 = new Worker();
-        Worker worker3 = new Worker();
-
-        Manager manager = new Manager();
-
         [Test]
         public void CheckSalary()
         {
+            Manager manager = new Manager();
+            Worker worker1 = new Worker(manager);
+            Worker worker2 = new Worker(manager);
+            Worker worker3 = new Worker(manager);
             manager.Hire(worker1);
             manager.Hire(worker2);
             manager.Hire(worker3);
 
-            worker1.Salary = 100;
             manager.Salary = 90;
-            Assert.That(() => worker1.Salary, Throws.Exception);
-            Assert.That(() => manager.Salary, Throws.Exception);
+            worker1.Salary = 100;
+
+            Assert.That(worker1.Salary, Throws.Exception);
+            Assert.That(manager.Salary, Throws.Exception);
         }
     }
 }

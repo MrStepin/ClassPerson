@@ -8,7 +8,7 @@ namespace ClassPerson
 {
     public class Manager : Employee
     {
-        public List<Worker> ListOfWorkers = new List<Worker>() { };
+        private List<Worker> ListOfWorkers = new List<Worker>() { };
 
         public void Dismiss(Worker worker)
         {
@@ -26,17 +26,17 @@ namespace ClassPerson
         {
             get
             {
-                foreach (Worker worker in ListOfWorkers)
-                {
-                    if (worker.Salary >= _value)
-                    {
-                        throw new Exception("Increase salary!");
-                    }
-                }
                 return _value;
             }
             set
             {
+                foreach (Worker worker in ListOfWorkers)
+                {
+                    if (worker.Salary >= value)
+                    {
+                        throw new Exception("Increase salary!");
+                    }
+                }
                 _value = value;
             }
         }

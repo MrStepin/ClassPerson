@@ -11,25 +11,26 @@ namespace ClassPerson
     {
         private double _managerSalary;
         private double _value;
+        private Manager _manager;
 
-        public void ManagerSalary(Manager manager)
+        public Worker(Manager manager)
         {
-            _managerSalary = manager.Salary;
+            _manager = manager;
         }
+
 
         public double Salary
         {
             get
             {
-                if (_managerSalary <= _value)
-                {
-                    throw new Exception("Increase salary!");
-                }
-                
                 return _value;
             }
             set
             {
+                if (_manager.Salary <= value)
+                {
+                    throw new Exception("Increase salary!");
+                }
                 _value = value;
             }
         }
