@@ -22,9 +22,9 @@ namespace ClassPerson
             {
                 AssertMoreThan(compareValue, value);
             }
-            catch(ArgumentException)
+            catch(ArgumentException e)
             {
-               
+               Console.WriteLine(e.Message);
             }
         }
     }
