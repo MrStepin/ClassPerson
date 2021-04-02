@@ -14,6 +14,7 @@ namespace Tests
         [Test]
         public void CheckSalary()
         {
+            OwnAssert assert = new OwnAssert();
             Manager manager = new Manager();
             Worker worker1 = new Worker(manager);
             Worker worker2 = new Worker(manager);
@@ -21,12 +22,11 @@ namespace Tests
             manager.Hire(worker1);
             manager.Hire(worker2);
             manager.Hire(worker3);
-
             manager.Salary = 90;
             worker1.Salary = 100;
 
-            Assert.That(worker1.Salary, Throws.Exception);
-            Assert.That(manager.Salary, Throws.Exception);
+            Assert.That(() => assert.CatchException(worker1.Salary, manager.Salary), Throws.Exception);
+            
         }
     }
 }

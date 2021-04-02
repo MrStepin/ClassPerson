@@ -19,20 +19,6 @@ namespace ClassPerson
         }
 
 
-        public double Salary
-        {
-            get
-            {
-                return _value;
-            }
-            set
-            {
-                if (_manager.Salary <= value)
-                {
-                    throw new Exception("Increase salary!");
-                }
-                _value = value;
-            }
-        }
+        public double Salary { get; set; }
     }
 }
