@@ -25,14 +25,7 @@ namespace Tests
             manager.Salary = 90;
             worker1.Salary = 100;
 
-            try
-            {
-                assert.CatchException(worker1.Salary, manager.Salary);
-            }
-            finally
-            {
-                Console.WriteLine("OK");
-            }
+            assert.AssertMoreThan(worker1.Salary, manager.Salary);
         }
     }
 }

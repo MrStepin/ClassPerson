@@ -15,19 +15,5 @@ namespace ClassPerson
                 throw new ArgumentException();
             }
         }
-
-        public void CatchException(double compareValue, double value)
-        {
-            try
-            {
-                AssertMoreThan(compareValue, value);
-            }
-            catch(ArgumentException e)
-            {
-               Console.WriteLine(e.Message);
-            }
-        }
     }
-
-    
 }
