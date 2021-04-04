@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClassPerson
 {
-    public class OwnAssert
+    public static class OwnAssert
     {
-        public void AssertMoreThan(double compareValue, double value)
+        public static void AssertMoreThan(double compareValue, double value)
         {
             if (compareValue >= value)
             {

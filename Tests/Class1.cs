@@ -14,7 +14,6 @@ namespace Tests
         [Test]
         public void CheckSalary()
         {
-            OwnAssert assert = new OwnAssert();
             Manager manager = new Manager();
             Worker worker1 = new Worker(manager);
             Worker worker2 = new Worker(manager);
@@ -25,7 +24,7 @@ namespace Tests
             manager.Salary = 90;
             worker1.Salary = 100;
 
-            assert.AssertMoreThan(worker1.Salary, manager.Salary);
+            OwnAssert.AssertMoreThan(worker1.Salary, manager.Salary);
         }
     }
 }
