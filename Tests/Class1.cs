@@ -18,15 +18,21 @@ namespace Tests
             Manager manager = new Manager();
             Worker worker1 = new Worker(manager);
             Worker worker2 = new Worker(manager);
-            Worker worker3 = new Worker(manager);
+            Worker worker3 = new Worker(manager);   
             manager.Hire(worker1);
             manager.Hire(worker2);
             manager.Hire(worker3);
             manager.Salary = 90;
             worker1.Salary = 100;
 
-            Assert.That(() => assert.CatchException(worker1.Salary, manager.Salary), Throws.Exception);
-            
+            try
+            {
+                assert.CatchException(worker1.Salary, manager.Salary);
+            }
+            finally
+            {
+                Console.WriteLine("OK");
+            }
         }
     }
 }
