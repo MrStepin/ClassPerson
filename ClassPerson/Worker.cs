@@ -9,7 +9,6 @@ namespace ClassPerson
 {
     public class Worker : Employee
     {
-        private double _managerSalary;
         private double _value;
         private Manager _manager;
 
@@ -18,7 +17,22 @@ namespace ClassPerson
             _manager = manager;
         }
 
-
-        public double Salary { get; set; }
+        public double Salary
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (_manager.Salary <= value)
+                {
+                    throw new Exception();
+                }
+                _value = value;
+            }
+            
+        }
+        
     }
 }

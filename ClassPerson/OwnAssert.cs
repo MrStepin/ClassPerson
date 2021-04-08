@@ -8,12 +8,18 @@ namespace ClassPerson
 {
     public static class OwnAssert
     {
-        public static void AssertMoreThan(double compareValue, double value)
+        public static void Throws(Action action)
         {
-            if (compareValue >= value)
+            try
             {
-                throw new ArgumentException();
+                action();
             }
+            catch
+            {
+                return;
+            }
+
+            throw new Exception();
         }
     }
 }

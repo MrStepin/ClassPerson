@@ -9,6 +9,7 @@ namespace ClassPerson
     public class Manager : Employee
     {
         private List<Worker> ListOfWorkers = new List<Worker>() { };
+        public List<Manager> ListOfManagers = new List<Manager>() { };
 
         public void Dismiss(Worker worker)
         {
@@ -18,6 +19,15 @@ namespace ClassPerson
         public void Hire(Worker worker)
         {
             ListOfWorkers.Add(worker);
+        }
+
+        public void HireSubordinateManagers(Manager manager, List<Manager> ListOfAllHiredManagers)
+        {
+            if (!ListOfAllHiredManagers.Contains(manager))
+            {
+                ListOfManagers.Add(manager);
+                ListOfAllHiredManagers.Add(manager);
+            }
         }
 
         private double _value;
@@ -34,7 +44,7 @@ namespace ClassPerson
                 {
                     if (worker.Salary >= value)
                     {
-                        throw new Exception("Increase salary!");
+                        throw new Exception();
                     }
                 }
                 _value = value;

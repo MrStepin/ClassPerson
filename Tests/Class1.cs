@@ -12,7 +12,7 @@ namespace Tests
     public class Class1
     {
         [Test]
-        public void CheckSalary()
+        public void CheckAssertOnWorkerSalary()
         {
             Manager manager = new Manager();
             Worker worker1 = new Worker(manager);
@@ -22,9 +22,26 @@ namespace Tests
             manager.Hire(worker2);
             manager.Hire(worker3);
             manager.Salary = 90;
-            worker1.Salary = 100;
+            Action workerSalary = () => { worker1.Salary = 100; };
+            OwnAssert.Throws(workerSalary);
+        }
 
-            OwnAssert.AssertMoreThan(worker1.Salary, manager.Salary);
+        [Test]
+        public void CheckManagers()
+        {
+            Manager manager1 = new Manager();
+            Manager manager2 = new Manager();
+            Manager manager3 = new Manager();
+            Manager manager4 = new Manager();
+            List<Manager> ListOfAllHiredManagers = new List<Manager>() { };
+
+            manager1.HireSubordinateManagers(manager2, ListOfAllHiredManagers);
+            manager1.HireSubordinateManagers(manager3, ListOfAllHiredManagers);
+            manager1.HireSubordinateManagers(manager4, ListOfAllHiredManagers);
+            manager2.HireSubordinateManagers(manager3, ListOfAllHiredManagers);
+            manager4.HireSubordinateManagers(manager3, ListOfAllHiredManagers);
+
+            Assert.Contains(manager2, manager1.ListOfManagers);
         }
     }
 }
