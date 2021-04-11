@@ -9,24 +9,31 @@ namespace ClassPerson
     public class Manager : Employee
     {
         private List<Worker> ListOfWorkers = new List<Worker>() { };
-        public List<Manager> ListOfManagers = new List<Manager>() { };
+        private List<Manager> ListOfManagers = new List<Manager>() { };
 
         public void Dismiss(Worker worker)
         {
             ListOfWorkers.Remove(worker);
         }
 
-        public void Hire(Worker worker)
+        public void HireWorker(Worker worker)
         {
-            ListOfWorkers.Add(worker);
+            if (!ListOfWorkers.Contains(worker))
+            {
+                ListOfWorkers.Add(worker);
+            }
         }
 
-        public void HireSubordinateManagers(Manager manager, List<Manager> ListOfAllHiredManagers)
+        public void DismissManager(Manager manager)
         {
-            if (!ListOfAllHiredManagers.Contains(manager))
+            ListOfManagers.Remove(manager);
+        }
+
+        public void HireManager(Manager manager)
+        {
+            if (!ListOfManagers.Contains(manager))
             {
                 ListOfManagers.Add(manager);
-                ListOfAllHiredManagers.Add(manager);
             }
         }
 
@@ -40,6 +47,14 @@ namespace ClassPerson
             }
             set
             {
+                foreach (Manager manager in ListOfManagers)
+                {
+                    if (manager.Salary >= value)
+                    {
+                        throw new Exception();
+                    }
+                    
+                }
                 foreach (Worker worker in ListOfWorkers)
                 {
                     if (worker.Salary >= value)
