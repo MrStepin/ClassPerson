@@ -6,38 +6,18 @@ using System.Threading.Tasks;
 
 namespace ClassPerson
 {
-    public class Manager : Employee
+    public class Manager : Worker
     {
-        private List<Worker> ListOfWorkers = new List<Worker>() { };
-        private List<Manager> ListOfManagers = new List<Manager>() { };
-
-        public void Dismiss(Worker worker)
-        {
-            ListOfWorkers.Remove(worker);
-        }
-
-        public void HireWorker(Worker worker)
-        {
-            if (!ListOfWorkers.Contains(worker))
-            {
-                ListOfWorkers.Add(worker);
-            }
-        }
-
-        public void DismissManager(Manager manager)
-        {
-            ListOfManagers.Remove(manager);
-        }
-
-        public void HireManager(Manager manager)
-        {
-            if (!ListOfManagers.Contains(manager))
-            {
-                ListOfManagers.Add(manager);
-            }
-        }
-
         private double _value;
+        private Manager _manager;
+
+        private List<Worker> ListOfWorkers = new List<Worker>() { };
+
+        public Manager() { }
+        public Manager(Manager manager)
+        {
+            _manager = manager;
+        }
 
         public double Salary
         {
@@ -47,22 +27,28 @@ namespace ClassPerson
             }
             set
             {
-                foreach (Manager manager in ListOfManagers)
+                if (_manager != null)
                 {
-                    if (manager.Salary >= value)
+                    if (_manager.Salary <= value)
                     {
                         throw new Exception();
                     }
-                    
+
+                    _value = value;
                 }
-                foreach (Worker worker in ListOfWorkers)
-                {
-                    if (worker.Salary >= value)
-                    {
-                        throw new Exception();
-                    }
-                }
-                _value = value;
+            }
+        }
+
+        public void DismissWorker(Worker worker)
+        {
+            ListOfWorkers.Remove(worker);
+        }
+
+        public void HireWorker(Worker worker)
+        {
+            if (!ListOfWorkers.Contains(worker))
+            {
+                ListOfWorkers.Add(worker);
             }
         }
     }

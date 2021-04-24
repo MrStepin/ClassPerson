@@ -17,10 +17,7 @@ namespace Tests
             Manager manager = new Manager();
             Worker worker1 = new Worker(manager);
             Worker worker2 = new Worker(manager);
-            Worker worker3 = new Worker(manager);   
-            manager.HireWorker(worker1);
-            manager.HireWorker(worker2);
-            manager.HireWorker(worker3);
+            Worker worker3 = new Worker(manager);
             manager.Salary = 90;
             Action workerSalary = () => { worker1.Salary = 100; };
             OwnAssert.Throws(workerSalary);
@@ -29,7 +26,11 @@ namespace Tests
         [Test]
         public void CheckManagers()
         {
-
+            Manager manager2 = new Manager();
+            Manager manager = new Manager(manager2);
+            manager2.Salary = 90;
+            Action managerSalary = () => { manager.Salary = 100; };
+            OwnAssert.Throws(managerSalary);
         }
     }
 }

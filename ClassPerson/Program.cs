@@ -38,11 +38,11 @@ namespace ClassPerson
             worker3.Age = 30;
             worker3.Seniority = 1;
 
-            manager.Hire(worker1);
-            manager.Hire(worker2);
-            manager.Hire(worker3);
+            manager.HireWorker(worker1);
+            manager.HireWorker(worker2);
+            manager.HireWorker(worker3);
 
-            manager.Dismiss(worker2);
+            manager.DismissWorker(worker2);
             Console.WriteLine(manager.Salary);
             Console.ReadKey();
 
