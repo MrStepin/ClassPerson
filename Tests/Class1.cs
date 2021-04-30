@@ -4,7 +4,7 @@ using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using  NUnit.Framework;
+using NUnit.Framework;
 using ClassPerson;
 
 namespace Tests
@@ -28,7 +28,10 @@ namespace Tests
         {
             Manager manager2 = new Manager();
             Manager manager = new Manager(manager2);
+            Worker worker1 = new Worker(manager);
             manager2.Salary = 90;
+            worker1.Salary = 10;
+            manager.HireWorker(worker1);
             Action managerSalary = () => { manager.Salary = 100; };
             OwnAssert.Throws(managerSalary);
         }

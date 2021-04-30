@@ -11,8 +11,9 @@ namespace ClassPerson
         static void Main(string[] args)
         {
             Manager manager = new Manager();
+            Manager manager2 = new Manager();
             Worker worker1 = new Worker(manager);
-            Worker worker2 = new Worker(manager);
+            Worker worker2 = new Worker(manager2);
             Worker worker3 = new Worker(manager);
 
             manager.Name = "Mr.Boss";
@@ -40,11 +41,22 @@ namespace ClassPerson
 
             manager.HireWorker(worker1);
             manager.HireWorker(worker2);
+            manager.Notify += TakeManager;
             manager.HireWorker(worker3);
 
-            manager.DismissWorker(worker2);
-            Console.WriteLine(manager.Salary);
+            manager2.HireWorker(worker2);
+
+            Console.WriteLine($"Тут{worker2.Leader}!");
             Console.ReadKey();
+
+        }
+
+        private static void TakeManager(object sender, EventArgs e, Manager manager)
+        {
+            if (sender is Worker)
+            {
+                ((Worker) sender).Leader = manager;
+            }
 
         }
     }

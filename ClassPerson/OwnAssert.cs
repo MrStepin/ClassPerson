@@ -18,7 +18,6 @@ namespace ClassPerson
             {
                 return;
             }
-
             throw new Exception();
         }
     }

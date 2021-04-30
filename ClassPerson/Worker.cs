@@ -16,6 +16,7 @@ namespace ClassPerson
         public string Name { get; set; }
         public int Age { get; set; }
         public double Seniority { get; set; }
+        public object Leader { get; set; }
 
         public Worker() { }
 
@@ -24,7 +25,7 @@ namespace ClassPerson
             _manager = manager;
         }
 
-        public double Salary
+        public virtual double Salary
         {
             get
             {
@@ -34,13 +35,13 @@ namespace ClassPerson
             {
                 if (_manager != null)
                 {
-                    if (_manager.Salary <= value)
+                    if ((_manager.Salary <= value) && (_manager.Salary != 0))
                     {
                         throw new Exception();
                     }
-
-                    _value = value;
                 }
+                _value = value;
+                
             }
         }
     }
