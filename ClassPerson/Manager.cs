@@ -14,14 +14,7 @@ namespace ClassPerson
 
         private List<Worker> ListOfWorkers = new List<Worker>() { };
 
-        public delegate void TakeLeader(object sender, EventArgs e, Manager manager);
-        public event TakeLeader Notify;
-
-        public Manager() { }
-        public Manager(Manager manager)
-        {
-            _manager = manager;
-        }
+        public Action<Worker, Manager> TakeLeader;
 
         public override double Salary
         {
@@ -50,16 +43,16 @@ namespace ClassPerson
             ListOfWorkers.Remove(worker);
         }
 
-        public void HireWorker(Worker worker)
+        public void HireWorker(Worker worker, Manager manager)
         {
             if (!ListOfWorkers.Contains(worker))
             {
                 if (worker.Leader != null)
                 {
-                    ((Manager)worker.Leader).DismissWorker(worker);
+                    worker.Leader.DismissWorker(worker);
                 }
                 ListOfWorkers.Add(worker);
-                Notify?.Invoke(this, null, _manager);
+                worker.Leader = manager;
             }
         }
     }

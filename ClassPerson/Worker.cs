@@ -16,7 +16,7 @@ namespace ClassPerson
         public string Name { get; set; }
         public int Age { get; set; }
         public double Seniority { get; set; }
-        public object Leader { get; set; }
+        public Manager Leader { get; set; }
 
         public Worker() { }
 
@@ -41,7 +41,6 @@ namespace ClassPerson
                     }
                 }
                 _value = value;
-                
             }
         }
     }

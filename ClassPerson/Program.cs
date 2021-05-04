@@ -39,24 +39,11 @@ namespace ClassPerson
             worker3.Age = 30;
             worker3.Seniority = 1;
 
-            manager.HireWorker(worker1);
-            manager.HireWorker(worker2);
-            manager.Notify += TakeManager;
-            manager.HireWorker(worker3);
+            manager.HireWorker(worker1, manager);
+            manager.HireWorker(worker2, manager);
+            manager2.HireWorker(worker2, manager2);
 
-            manager2.HireWorker(worker2);
-
-            Console.WriteLine($"Тут{worker2.Leader}!");
             Console.ReadKey();
-
-        }
-
-        private static void TakeManager(object sender, EventArgs e, Manager manager)
-        {
-            if (sender is Worker)
-            {
-                ((Worker) sender).Leader = manager;
-            }
 
         }
     }
