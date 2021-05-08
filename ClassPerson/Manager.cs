@@ -64,27 +64,27 @@ namespace ClassPerson
             listOfWorkers.Remove(manager);
         }
 
-        public void HireWorker(Manager managerLeader, Worker worker)
+        public void HireWorker(Worker worker)
         {
             if (!listOfWorkers.Contains(worker))
             {
                 if (worker.Leader != Leader)
                 {
                     worker.Leader.DismissWorker(worker);
-                    worker.Leader = managerLeader;
+                    worker.Leader = this;
                 }
                 listOfWorkers.Add(worker);
             }
         }
 
-        public void HireManager(Manager managerLeader, Manager manager)
+        public void HireManager(Manager manager)
         {
             if (!listOfWorkers.Contains(manager))
             {
                 if (manager.Leader != null)
                 {
                     manager.Leader.DismissManager(manager);
-                    manager.Leader = managerLeader;
+                    manager.Leader = this;
                 }
                 listOfManagers.Add(manager);
             }

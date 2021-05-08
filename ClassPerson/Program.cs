@@ -41,9 +41,9 @@ namespace ClassPerson
             worker3.Age = 30;
             worker3.Seniority = 1;
 
-            manager2.HireWorker(manager2, worker1);
-            manager.HireWorker(manager, worker2);
-            manager2.HireWorker(manager2, worker2);
+            manager2.HireWorker(worker1);
+            manager.HireWorker(worker2);
+            manager2.HireWorker(worker2);
 
             Console.ReadKey();
 
