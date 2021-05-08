@@ -10,11 +10,17 @@ namespace ClassPerson
     public class Manager : Worker
     {
         private double _value;
-        private Manager _manager;
 
-        private List<Worker> ListOfWorkers = new List<Worker>() { };
+        private List<Worker> listOfWorkers = new List<Worker>() { };
 
-        public Action<Worker, Manager> TakeLeader;
+        private List<Manager> listOfManagers = new List<Manager>() { };
+
+        public Manager () { }
+
+        public Manager(Manager manager)
+        {
+            Leader = manager;
+        }
 
         public override double Salary
         {
@@ -24,11 +30,21 @@ namespace ClassPerson
             }
             set
             {
-                if ((_manager != null) && (ListOfWorkers.Count != 0))
+                if ((Leader != null) && (listOfWorkers.Count != 0))
                 {
-                    foreach (Worker worker in ListOfWorkers)
+                    foreach (Worker worker in listOfWorkers)
                     {
-                        if ((_manager.Salary <= value) || (worker.Salary >= value))
+                        if ((Leader.Salary <= value) || (worker.Salary >= value))
+                        {
+                            throw new Exception();
+                        }
+                    }
+                }
+                if ((Leader != null) && (listOfManagers.Count != 0))
+                {
+                    foreach (Manager manager in listOfManagers)
+                    {
+                        if ((Leader.Salary <= value) || (manager.Salary >= value))
                         {
                             throw new Exception();
                         }
@@ -40,19 +56,37 @@ namespace ClassPerson
 
         public void DismissWorker(Worker worker)
         {
-            ListOfWorkers.Remove(worker);
+            listOfWorkers.Remove(worker);
         }
 
-        public void HireWorker(Worker worker, Manager manager)
+        public void DismissManager(Manager manager)
         {
-            if (!ListOfWorkers.Contains(worker))
+            listOfWorkers.Remove(manager);
+        }
+
+        public void HireWorker(Manager managerLeader, Worker worker)
+        {
+            if (!listOfWorkers.Contains(worker))
             {
-                if (worker.Leader != null)
+                if (worker.Leader != Leader)
                 {
                     worker.Leader.DismissWorker(worker);
+                    worker.Leader = managerLeader;
                 }
-                ListOfWorkers.Add(worker);
-                worker.Leader = manager;
+                listOfWorkers.Add(worker);
+            }
+        }
+
+        public void HireManager(Manager managerLeader, Manager manager)
+        {
+            if (!listOfWorkers.Contains(manager))
+            {
+                if (manager.Leader != null)
+                {
+                    manager.Leader.DismissManager(manager);
+                    manager.Leader = managerLeader;
+                }
+                listOfManagers.Add(manager);
             }
         }
     }

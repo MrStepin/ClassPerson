@@ -31,9 +31,20 @@ namespace Tests
             Worker worker1 = new Worker(manager);
             manager2.Salary = 90;
             worker1.Salary = 10;
-            manager.HireWorker(worker1);
+            manager.HireWorker(manager, worker1);
             Action managerSalary = () => { manager.Salary = 100; };
             OwnAssert.Throws(managerSalary);
+        }
+
+        [Test]
+        public void CheckHireWorker()
+        {
+            Manager manager = new Manager();
+            Manager manager2 = new Manager();
+            Worker worker1 = new Worker(manager);
+            manager2.HireWorker(manager2, worker1);
+            Assert.NotNull(worker1.Leader);
+            OwnAssert.CheckLeader(worker1.Leader, manager2);
         }
     }
 }

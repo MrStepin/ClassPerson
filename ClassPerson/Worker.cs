@@ -11,7 +11,6 @@ namespace ClassPerson
     public class Worker
     {
         private double _value;
-        private Manager _manager;
 
         public string Name { get; set; }
         public int Age { get; set; }
@@ -22,7 +21,7 @@ namespace ClassPerson
 
         public Worker(Manager manager)
         {
-            _manager = manager;
+            Leader = manager;
         }
 
         public virtual double Salary
@@ -33,9 +32,9 @@ namespace ClassPerson
             }
             set
             {
-                if (_manager != null)
+                if (Leader != null)
                 {
-                    if ((_manager.Salary <= value) && (_manager.Salary != 0))
+                    if ((Leader.Salary <= value) && (Leader.Salary != 0))
                     {
                         throw new Exception();
                     }
