@@ -9,11 +9,10 @@ namespace ClassPerson
 {
     public class Manager : Worker
     {
+
         private double _value;
 
         private List<Worker> listOfWorkers = new List<Worker>() { };
-
-        private List<Manager> listOfManagers = new List<Manager>() { };
 
         public Manager () { }
 
@@ -40,16 +39,6 @@ namespace ClassPerson
                         }
                     }
                 }
-                if ((Leader != null) && (listOfManagers.Count != 0))
-                {
-                    foreach (Manager manager in listOfManagers)
-                    {
-                        if ((Leader.Salary <= value) || (manager.Salary >= value))
-                        {
-                            throw new Exception();
-                        }
-                    }
-                }
                 _value = value;
             }
         }
@@ -59,34 +48,19 @@ namespace ClassPerson
             listOfWorkers.Remove(worker);
         }
 
-        public void DismissManager(Manager manager)
-        {
-            listOfWorkers.Remove(manager);
-        }
-
         public void HireWorker(Worker worker)
         {
             if (!listOfWorkers.Contains(worker))
             {
                 if (worker.Leader != Leader)
                 {
-                    worker.Leader.DismissWorker(worker);
+                    if (worker.Leader != null)
+                    {
+                        worker.Leader.DismissWorker(worker);
+                    }
                     worker.Leader = this;
                 }
                 listOfWorkers.Add(worker);
-            }
-        }
-
-        public void HireManager(Manager manager)
-        {
-            if (!listOfWorkers.Contains(manager))
-            {
-                if (manager.Leader != null)
-                {
-                    manager.Leader.DismissManager(manager);
-                    manager.Leader = this;
-                }
-                listOfManagers.Add(manager);
             }
         }
     }

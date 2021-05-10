@@ -46,5 +46,15 @@ namespace Tests
             Assert.NotNull(worker1.Leader);
             OwnAssert.CheckLeader(worker1.Leader, manager2);
         }
+
+        [Test]
+        public void CheckHireManager()
+        {
+            Manager manager = new Manager();
+            Manager manager2 = new Manager(manager);
+            manager2.HireWorker(manager);
+            Assert.NotNull(manager.Leader);
+            OwnAssert.CheckLeader(manager.Leader, manager2);
+        }
     }
 }

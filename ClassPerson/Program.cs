@@ -11,10 +11,13 @@ namespace ClassPerson
         static void Main(string[] args)
         {
             Manager manager = new Manager();
-            Manager manager2 = new Manager();
+            Manager manager2 = new Manager(manager);
             Worker worker1 = new Worker(manager);
             Worker worker2 = new Worker(manager2);
             Worker worker3 = new Worker(manager);
+
+            Console.WriteLine(manager.Leader);
+
 
             manager.Name = "Mr.Boss";
             manager.Salary = 200;
@@ -44,6 +47,7 @@ namespace ClassPerson
             manager2.HireWorker(worker1);
             manager.HireWorker(worker2);
             manager2.HireWorker(worker2);
+            manager2.HireWorker(manager);
 
             Console.ReadKey();
 
