@@ -31,12 +31,16 @@ namespace ClassPerson
             {
                 if ((Leader != null) && (listOfWorkers.Count != 0))
                 {
-                    foreach (Worker worker in listOfWorkers)
+                    if (Leader.Salary <= value)
                     {
-                        if ((Leader.Salary <= value) || (worker.Salary >= value))
+                        foreach (Worker worker in listOfWorkers)
                         {
-                            throw new Exception();
+                            if (worker.Salary >= value)
+                            {
+                                throw new Exception();
+                            }
                         }
+                        throw new Exception();
                     }
                 }
                 _value = value;
