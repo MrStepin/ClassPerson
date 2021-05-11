@@ -16,8 +16,6 @@ namespace Tests
         {
             Manager manager = new Manager();
             Worker worker1 = new Worker(manager);
-            Worker worker2 = new Worker(manager);
-            Worker worker3 = new Worker(manager);
             manager.Salary = 90;
             Action workerSalary = () => { worker1.Salary = 100; };
             OwnAssert.Throws(workerSalary);
@@ -52,7 +50,7 @@ namespace Tests
         {
             Manager manager = new Manager();
             Manager manager2 = new Manager(manager);
-            manager2.HireWorker(manager);
+            manager2.HireManager(manager);
             Assert.NotNull(manager.Leader);
             OwnAssert.CheckLeader(manager.Leader, manager2);
         }

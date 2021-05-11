@@ -2,26 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ClassPerson
 {
-    public class Manager : Worker
+    public class Manager  : Worker
     {
-
         private double _value;
 
         private List<Worker> listOfWorkers = new List<Worker>() { };
 
-        public Manager () { }
+        private List<Manager> listOfManagers = new List<Manager>() { };
+
+        public Manager() { }
 
         public Manager(Manager manager)
         {
             Leader = manager;
         }
 
-        public override double Salary
+        private void CheckSalary<T>(double value, List<T> listOfEmployees) where T: Worker
+        {
+            if ((Leader != null) && (listOfEmployees.Count != 0))
+            {
+                if (Leader.Salary <= value)
+                {
+                    foreach (T worker in listOfEmployees)
+                    {
+                        if (worker.Salary >= value)
+                        {
+                            throw new Exception();
+                        }
+                    }
+                    throw new Exception();
+                }
+            }
+        }
+
+        public override double Salary 
         {
             get
             {
@@ -29,43 +49,42 @@ namespace ClassPerson
             }
             set
             {
-                if ((Leader != null) && (listOfWorkers.Count != 0))
-                {
-                    if (Leader.Salary <= value)
-                    {
-                        foreach (Worker worker in listOfWorkers)
-                        {
-                            if (worker.Salary >= value)
-                            {
-                                throw new Exception();
-                            }
-                        }
-                        throw new Exception();
-                    }
-                }
+                CheckSalary(value, listOfWorkers);
+                CheckSalary(value, listOfManagers);
                 _value = value;
             }
         }
 
-        public void DismissWorker(Worker worker)
+        public void DismissEmployee<T>(T worker, List<T> listOfEmployees)
         {
-            listOfWorkers.Remove(worker);
+            listOfEmployees.Remove(worker);
         }
 
-        public void HireWorker(Worker worker)
+        private void HireEmployee<T>(T worker, List<T> listOfEmployees) where T : Worker
         {
-            if (!listOfWorkers.Contains(worker))
+
+            if (!listOfEmployees.Contains(worker))
             {
                 if (worker.Leader != Leader)
                 {
                     if (worker.Leader != null)
                     {
-                        worker.Leader.DismissWorker(worker);
+                        worker.Leader.DismissEmployee(worker, listOfEmployees);
                     }
                     worker.Leader = this;
                 }
-                listOfWorkers.Add(worker);
+                listOfEmployees.Add(worker);
             }
+        }
+
+        public void HireWorker(Worker worker)
+        {
+            HireEmployee(worker, listOfWorkers);
+        }
+
+        public void HireManager(Manager manager)
+        {
+            HireEmployee(manager, listOfManagers);
         }
     }
 }
