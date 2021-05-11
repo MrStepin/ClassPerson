@@ -55,9 +55,19 @@ namespace ClassPerson
             }
         }
 
-        public void DismissEmployee<T>(T worker, List<T> listOfEmployees)
+        private void DismissEmployee<T>(T worker, List<T> listOfEmployees)
         {
             listOfEmployees.Remove(worker);
+        }
+
+        public void DismissWorker(Worker worker)
+        {
+            DismissEmployee(worker, listOfWorkers);
+        }
+
+        public void DismissManager(Manager manager)
+        {
+            DismissEmployee(manager, listOfManagers);
         }
 
         private void HireEmployee<T>(T worker, List<T> listOfEmployees) where T : Worker
